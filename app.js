@@ -47,6 +47,7 @@ keys.addEventListener("click", (e) => {
 
   num1 = Number(resBot.innerText);
   console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
+
   if (e.target.classList.contains("opr")) {
     if (!resTop.innerText && !resBot.innerText) {
       return;
@@ -56,15 +57,13 @@ keys.addEventListener("click", (e) => {
         resTop.innerText = "";
         resTop.innerText = num2 + opr;
         num1 = "";
+        console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
       } else if (num2 && num1) {
-        resTop.innerText = calculate(num1, opr, num2);
-        if (resTop.innerText.length > 7) {
-          resTop.innerText = resTop.innerText.slice(0, 7);
-        }
+        resTop.innerText =
+          calculate(num1, opr, num2) + " " + e.target.innerText;
 
-        resTop.innerText += " " + e.target.innerText;
         resBot.innerText = "";
-        num2 = Number(resTop.innerText.slice(0, 7));
+        num2 = calculate(num1, opr, num2);
         opr = e.target.innerText;
         num1 = "";
 
@@ -87,15 +86,14 @@ keys.addEventListener("click", (e) => {
   if (e.target.classList.contains("equal")) {
     if (!num1 || !num2 || !opr) {
       alert("Please enter number and operator");
-      resTop.innerText = num2 + " " + opr;
+      resTop.innerText = num2 || num1 + " " + opr;
+      resBot.innerText = " ";
+      num2 = Number(resTop.innerText);
     } else {
       resTop.innerText = calculate(num1, opr, num2);
-      if (resTop.innerText.length > 7) {
-        resTop.innerText = resTop.innerText.slice(0, 7);
-      }
 
       resBot.innerText = " ";
-      num2 = Number(resTop.innerText.slice(0, 7));
+      num2 = calculate(num1, opr, num2);
       num1 = "";
       opr = "";
       console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
@@ -104,21 +102,26 @@ keys.addEventListener("click", (e) => {
 });
 
 function calculate(n1, opr, n2) {
+  let res = 0;
   if (opr == "+") {
-    return n1 + n2;
+    res = n1 + n2;
   } else if (opr == "-") {
-    return n2 - n1;
+    res = n2 - n1;
   } else if (opr == "*") {
-    return n1 * n2;
+    res = n1 * n2;
   } else if (opr == "÷") {
     if (n1 == 0) {
       alert("Undefinition process");
       return 0;
     }
-    return n2 / n1;
+    res = n2 / n1;
   } else if (opr == "%") {
-    return n2 * (n1 / 100);
+    res = n2 * (n1 / 100);
   }
+  if (String(res).length > 8) {
+    res = String(res).slice(0, 9);
+  }
+  return Number(res);
 }
 
 function AcClear() {
