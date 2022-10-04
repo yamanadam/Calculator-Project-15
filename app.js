@@ -14,9 +14,9 @@ keys.addEventListener("click", (e) => {
   }
 
   if (e.target.classList.contains("arrow")) {
-    resTop.innerText = num1 ** 0.5;
+    resTop.innerText = (num1 || num2) ** 0.5;
     resBot.innerText = "";
-    num2 = num1 ** 0.5;
+    num2 = (num1 || num2) ** 0.5;
   }
 
   if (e.target.classList.contains("zero") && !resBot.innerText) {
