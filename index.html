@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calculator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    s
   </head>
   <body>
-    <div class="container">
-      <div class="containerKeys">
-        <div class="result">
-          <p id="result1"></p>
-          <p id="result2"></p>
-        </div>
-        <div class="ac content c1">AC</div>
-        <div class="opr content c2">±</div>
-        <div class="opr content c3">%</div>
-        <div class="opr content c4">/</div>
-        <div class="num content c5">7</div>
-        <div class="num content c6">8</div>
-        <div class="num content c7">9</div>
-        <div class="opr content c8">*</div>
-        <div class="num content c9">4</div>
-        <div class="num content c10">5</div>
-        <div class="num content c11">6</div>
-        <div class="opr content c12">-</div>
-        <div class="num content c13">1</div>
-        <div class="num content c14">2</div>
-        <div class="num content c15">3</div>
-        <div class="opr content c16">+</div>
-        <div class="content zero">0</div>
-
-        <div class="point content c18">.</div>
-        <div class="equal content c19">=</div>
+    <div class="calculate">
+      <div class="result me-3">
+        <p class="resultTop"></p>
+        <p class="resultBottom"></p>
+      </div>
+      <div class="keys">
+        <button class="key ac keyGrey">AC</button>
+        <button class="key arrow keyGrey">√</button>
+        <button class="key opr keyGrey">%</button>
+        <button class="key opr keyYellow">÷</button>
+        <button class="key num">7</button>
+        <button class="key num">8</button>
+        <button class="key num">9</button>
+        <button class="key opr keyYellow">*</button>
+        <button class="key num">4</button>
+        <button class="key num">5</button>
+        <button class="key num">6</button>
+        <button class="key opr keyYellow">-</button>
+        <button class="key num">1</button>
+        <button class="key num">2</button>
+        <button class="key num">3</button>
+        <button class="key opr keyYellow">+</button>
+        <button class="key zero">0</button>
+        <button class="key point">.</button>
+        <button class="key equal keyYellow">=</button>
       </div>
     </div>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js"></script>
   </body>
 </html>

@@ -2,79 +2,82 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  text-align: center;
-  font-family: "Helvetica Neue", sans-serif;
 }
 
-.containerKeys {
-  background-color: black;
+.calculate {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.keys {
   display: grid;
-  grid-template-columns: 100px 100px 100px 100px;
-  /* margin: 0 33vw; */
-  width: 32rem;
-  margin: auto;
-  gap: 0.8rem;
-  max-height: 100vh;
-  justify-content: center;
-  align-content: flex-end;
-  /* align-items: flex-end; */
-  padding: 40px;
-  padding-top: 600px;
-  border-radius: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
 }
 
-.content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
+.key {
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 50%;
-  /* border: 2px solid red; */
-  /* width: 65px; */
+  background-color: rgba(0, 0, 0, 0.488);
   color: white;
-  background-color: rgba(128, 128, 128, 0.433);
-  font-size: 40px;
-  font-weight: 500;
 }
 
 .result {
-  font-size: 3rem;
-  margin-right: 2rem;
-  height: 12rem;
-  color: white;
-  grid-column: span 4;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: space-around;
+  min-height: 15vh;
 }
 
-.content:hover {
-  opacity: 0.5;
-  cursor: pointer;
+p {
+  font-weight: 700;
 }
 
-.c4,
-.c8,
-.c12,
-.c16 {
-  background-color: orange;
-}
-.c1,
-.c2,
-.c3 {
-  background-color: #a5a5a5;
+.zero {
+  grid-column: 1 / span 2;
+  width: 9rem;
 }
 
-.c17 {
-  grid-column: span 2;
-  border-radius: 55px;
-  display: flex;
-  justify-content: flex-start;
-  padding: 40px;
+.keyGrey {
+  background-color: rgba(255, 0, 0, 0.453);
+  color: black;
 }
 
-.container {
-  border: 2px solid red;
-  max-height: 100vh;
+.keyGrey:hover {
+  background-color: rgba(255, 0, 0, 0.653);
+}
+
+.keyYellow {
+  background-color: rgba(255, 166, 0, 0.594);
+}
+
+.keyYellow:hover {
+  background-color: rgba(255, 166, 0, 0.794);
+}
+
+.num,
+.zero,
+.point {
+  background-color: rgba(0, 0, 0, 0.488);
+  color: white;
+}
+
+.num:hover,
+.zero:hover,
+.point:hover {
+  background-color: rgba(0, 0, 0, 0.588);
+  color: white;
+}
+
+.arrow {
+  font-size: 1.7rem;
+  font-weight: 500;
 }

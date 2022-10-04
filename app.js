@@ -1,97 +1,130 @@
-const container = document.querySelector(".containerKeys");
-let resBottom = document.querySelector("#result2");
-let resTop = document.querySelector("#result1");
+const keys = document.querySelector(".keys");
+let resTop = document.querySelector(".resultTop");
+let resBot = document.querySelector(".resultBottom");
 
-let number1 = 0;
-let number2 = 0;
 let opr = "";
 
-container.addEventListener("click", (e) => {
+let num1;
+let num2;
+
+keys.addEventListener("click", (e) => {
+  console.log(e.target);
   if (e.target.classList.contains("ac")) {
     AcClear();
-  } else if (e.target.classList.contains("point")) {
-    point();
-  } else if (e.target.classList.contains("num")) {
-    resBottom.innerText += e.target.innerText;
-    number1 = Number(resBottom.innerText);
-  } else if (e.target.classList.contains("zero")) {
-    zero();
+  }
 
-    number1 = Number(resBottom.innerText);
-  } else if (e.target.classList.contains("equal")) {
-    if (!number1 || !number2 || !opr) {
-      alert("Please enter number and operator");
-      resTop.innerText = " ";
+  if (e.target.classList.contains("arrow")) {
+    resTop.innerText = num1 ** 0.5;
+    resBot.innerText = "";
+    num2 = num1 ** 0.5;
+  }
+
+  if (e.target.classList.contains("zero") && !resBot.innerText) {
+    resBot.innerText = "0";
+  }
+
+  if (
+    e.target.classList.contains("zero") &&
+    (resBot.innerText[0] != "0" || resBot.innerText.slice(0, 2) == "0.")
+  ) {
+    resBot.innerText += "0";
+  }
+
+  if (
+    e.target.classList.contains("point") &&
+    !resBot.innerText.includes(".") &&
+    resBot.innerText.length >= 1
+  ) {
+    resBot.innerText += ".";
+  }
+
+  if (e.target.classList.contains("num")) {
+    if (resBot.innerText.length == 1 && resBot.innerText.includes("0")) {
+      resBot.innerText = "";
     }
-    resTop.innerText = calculate(number2, opr, number1).toFixed(2);
+    resBot.innerText += e.target.innerText;
+  }
 
-    resBottom.innerText = " ";
-    number1 = Number(resTop.innerText);
-    number2 = "";
-  } else if (e.target.classList.contains("opr")) {
-    if (
-      resTop.innerText.includes("+") ||
-      resTop.innerText.includes("-") ||
-      resTop.innerText.includes("*") ||
-      resTop.innerText.includes("/") ||
-      resTop.innerText.includes("%")
-    ) {
-      resTop.innerText += resBottom.innerText + " " + e.target.innerText;
-    }
-    if (number2) {
-      resTop.innerText =
-        calculate(number2, opr, number1).toFixed(2) + " " + e.target.innerText;
-      resBottom.innerText = " ";
-
-      number2 = Number(calculate(number2, opr, number1).toFixed(2));
-      opr = e.target.innerText;
-
-      number1 = "";
+  num1 = Number(resBot.innerText);
+  console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
+  if (e.target.classList.contains("opr")) {
+    if (!resTop.innerText && !resBot.innerText) {
+      return;
     } else {
-      resTop.innerText += resBottom.innerText + " " + e.target.innerText;
+      if (opr && !num1) {
+        opr = e.target.innerText;
+        resTop.innerText = "";
+        resTop.innerText = num2 + opr;
+        num1 = "";
+      } else if (num2 && num1) {
+        resTop.innerText = calculate(num1, opr, num2);
+        if (resTop.innerText.length > 7) {
+          resTop.innerText = resTop.innerText.slice(0, 7);
+        }
 
-      resBottom.innerText = " ";
-      opr = e.target.innerText;
-      number2 = number1;
-      number1 = "";
+        resTop.innerText += " " + e.target.innerText;
+        resBot.innerText = "";
+        num2 = Number(resTop.innerText.slice(0, 7));
+        opr = e.target.innerText;
+        num1 = "";
+
+        console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
+      } else if (num2 && !num1 && !opr) {
+        opr = e.target.innerText;
+        resTop.innerText = num2 + " " + opr;
+        console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
+      } else {
+        resTop.innerText += resBot.innerText + " " + e.target.innerText;
+        resBot.innerText = "";
+        opr = e.target.innerText;
+        num2 = num1;
+        num1 = "";
+        // calculate(num1, opr, num2);
+        console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
+      }
+    }
+  }
+  if (e.target.classList.contains("equal")) {
+    if (!num1 || !num2 || !opr) {
+      alert("Please enter number and operator");
+      resTop.innerText = num2 + " " + opr;
+    } else {
+      resTop.innerText = calculate(num1, opr, num2);
+      if (resTop.innerText.length > 7) {
+        resTop.innerText = resTop.innerText.slice(0, 7);
+      }
+
+      resBot.innerText = " ";
+      num2 = Number(resTop.innerText.slice(0, 7));
+      num1 = "";
+      opr = "";
+      console.log("Num1:", num1, "Num2:", num2, "opr:", opr);
     }
   }
 });
 
 function calculate(n1, opr, n2) {
-  if (opr === "+") {
+  if (opr == "+") {
     return n1 + n2;
-  } else if (opr === "-") {
-    return n1 - n2;
-  } else if (opr === "*") {
+  } else if (opr == "-") {
+    return n2 - n1;
+  } else if (opr == "*") {
     return n1 * n2;
-  } else if (opr === "/") {
-    if (n2 == 0) {
+  } else if (opr == "÷") {
+    if (n1 == 0) {
       alert("Undefinition process");
+      return 0;
     }
-    return n1 / n2;
-  } else if (opr === "%") {
-    return (n1 * n2) / 100;
+    return n2 / n1;
+  } else if (opr == "%") {
+    return n2 * (n1 / 100);
   }
 }
 
 function AcClear() {
-  number1 = "";
-  number2 = "";
-  resBottom.innerText = "";
+  num1 = "";
+  num2 = "";
+  opr = "";
+  resBot.innerText = "";
   resTop.innerText = "";
-}
-
-function point() {
-  return !resBottom.innerText.includes(".") && resBottom.innerText
-    ? (resBottom.innerText += ".")
-    : "";
-}
-
-function zero() {
-  if (resBottom.innerText.length == 1 && resBottom.innerText == "0") {
-    return (resBottom.innerText = "0");
-  } else {
-    return (resBottom.innerText += "0");
-  }
 }
